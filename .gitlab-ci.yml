@@ -1,25 +1,22 @@
 # .gitlab-ci.yml
 
-# Define the Docker image to use for the pipeline jobs
-image: docker:latest
-
-# Define stages of the pipeline
+# Define stages for the pipeline
 stages:
   - build
-  - deploy
 
-# Build stage job: Build NGINX Docker image
+# Define jobs for each stage
 build:
   stage: build
   script:
-    - docker build -t $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG .
-    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG
-
-# Optionally, define post actions or notifications
-# For example, notify on failure
-on_failure:
-  email:
-    recipients:
-      - admin@example.com
-    notify: always
+    # Build the Docker image
+    - docker build -t my-nginx-image .
+    # (Optional) Tag the image with GitLab CI/CD variables
+    # - docker tag my-nginx-image $CI_REGISTRY_IMAGE:latest
+    # Push the Docker image to GitLab Container Registry (if needed)
+    # - docker push $CI_REGISTRY_IMAGE:latest
+  tags:
+    - docker   # Specify a runner with Docker support
+  artifacts:
+    paths:
+      - Dockerfile   # Include Dockerfile as an artifact
 
