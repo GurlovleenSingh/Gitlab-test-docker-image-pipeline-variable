@@ -1,0 +1,25 @@
+# .gitlab-ci.yml
+
+# Define the Docker image to use for the pipeline jobs
+image: docker:latest
+
+# Define stages of the pipeline
+stages:
+  - build
+  - deploy
+
+# Build stage job: Build NGINX Docker image
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG .
+    - docker push $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG
+
+# Optionally, define post actions or notifications
+# For example, notify on failure
+on_failure:
+  email:
+    recipients:
+      - admin@example.com
+    notify: always
+
