@@ -1,26 +1,17 @@
-# Use an official PHP runtime as a parent image
-FROM php:7.4-apache
+# Dockerfile for NGINX
 
-# Set the working directory in the container
-WORKDIR /var/www/html
+# Use the official NGINX image as the base image
+FROM nginx:latest
 
-# Copy the current directory contents into the container at /var/www/html
-COPY . /var/www/html
+# (Optional) Set any custom configurations
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-# Install additional PHP extensions and tools
-RUN apt-get update && \
-    apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libzip-dev \
-        unzip \
-        git \
-    && docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql zip
+# (Optional) Copy any static files (e.g., HTML, CSS) to the NGINX web root
+# COPY static-html-directory /usr/share/nginx/html
 
-# Enable Apache modules
-RUN a2enmod rewrite
+# Expose ports (if necessary, NGINX typically runs on port 80 by default)
+EXPOSE 80
 
-# Restart Apache to apply changes
-RUN service apache2 restart
+# Command to start NGINX when the container starts
+CMD ["nginx", "-g", "daemon off;"]
 
