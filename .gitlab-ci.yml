@@ -1,22 +1,22 @@
 # .gitlab-ci.yml
 
-# Define stages for the pipeline
 stages:
   - build
+  - test
 
-# Define jobs for each stage
+variables:
+  DOCKER_HOST: tcp://docker:2375/  # Set Docker host to the Docker-in-Docker service
+
+services:
+  - docker:dind
+
 build:
   stage: build
   script:
-    # Build the Docker image
-    - docker build -t my-nginx-image .
-    # (Optional) Tag the image with GitLab CI/CD variables
-    # - docker tag my-nginx-image $CI_REGISTRY_IMAGE:latest
-    # Push the Docker image to GitLab Container Registry (if needed)
-    # - docker push $CI_REGISTRY_IMAGE:latest
-  tags:
-    - docker   # Specify a runner with Docker support
-  artifacts:
-    paths:
-      - Dockerfile   # Include Dockerfile as an artifact
+    - docker info
+    - docker build -t my-docker-image .
 
+test:
+  stage: test
+  script:
+    - docker run my-docker-image /bin/bash -c "your test command here"
