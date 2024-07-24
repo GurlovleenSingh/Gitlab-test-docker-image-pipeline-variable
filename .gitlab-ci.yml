@@ -2,21 +2,21 @@
 
 stages:
   - build
-  - test
 
 variables:
   DOCKER_HOST: tcp://docker:2375/  # Set Docker host to the Docker-in-Docker service
-
+default:
+  image:docker:latest
 services:
   - docker:dind
 
 build:
   stage: build
+  tags: aws-ec2
+  before_script:
+    - docker version
   script:
     - docker info
     - docker build -t my-docker-image .
+    - docker images ls
 
-test:
-  stage: test
-  script:
-    - docker run my-docker-image /bin/bash -c "your test command here"
