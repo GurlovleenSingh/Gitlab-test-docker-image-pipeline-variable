@@ -5,14 +5,17 @@ stages:
 
 variables:
   DOCKER_HOST: tcp://docker:2375/  # Set Docker host to the Docker-in-Docker service
+  
 default:
-  image:docker:latest
+  image: docker:latest
+
 services:
   - docker:dind
 
 build:
   stage: build
-  tags: aws-ec2
+  tags: 
+    - aws-ec2
   before_script:
     - docker version
   script:
