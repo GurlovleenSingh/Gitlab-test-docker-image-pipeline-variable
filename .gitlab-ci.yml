@@ -14,7 +14,7 @@ default:
 build:
   stage: build
   tags: 
-    - aws-ec2
+    - runner
   before_script:
     - docker version
   script:
