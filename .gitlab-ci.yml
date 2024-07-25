@@ -4,7 +4,7 @@ stages:
   - build
 
 variables:
-  DOCKER_HOST: "tcp://docker:30"  # Set Docker host to the Docker-in-Docker service
+  DOCKER_HOST: "tcp://docker:2375"  # Set Docker host to the Docker-in-Docker service
   
 default:
   image: docker:latest
