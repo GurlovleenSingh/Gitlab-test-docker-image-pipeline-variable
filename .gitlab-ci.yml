@@ -22,7 +22,7 @@ build:
     - docker version
   script:
     - docker info
-    - docker login registry.gitlab.com -u GurlovleenSingh -p $glpat-A-Yw_y4Ajo6moSLHbEeD
+    - docker login registry.gitlab.com -u GurlovleenSingh -p $ci_token
     - docker build -t registry.gitlab.com/project1740/ngnix_project .
     - docker push registry.gitlab.com/project1740/ngnix_project
 
