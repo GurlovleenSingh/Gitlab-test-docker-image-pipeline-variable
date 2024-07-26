@@ -8,8 +8,12 @@ variables:
   
 default:
   image: docker:19-dind
-  services:
-  - docker:dind
+  
+services:
+  - name: docker:20-dind
+    alias: docker
+    command: [ "--tls=false" ]
+
 
 build:
   stage: build
