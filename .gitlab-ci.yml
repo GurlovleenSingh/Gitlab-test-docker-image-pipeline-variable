@@ -19,6 +19,7 @@ build:
     - docker version
   script:
     - docker info
-    - docker build -t my-docker-image .
-    - docker images ls
+    - docker login registry.gitlab.com -u GurlovleenSingh -p $TOKEN
+    - docker build -t registry.gitlab.com/project1740/ngnix_project .
+    - docker push registry.gitlab.com/project1740/ngnix_project
 
