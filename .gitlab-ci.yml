@@ -39,7 +39,7 @@ test_job:
   script:
     - docker login registry.gitlab.com -u GurlovleenSingh -p Ansibleaws123** 
     - docker pull registry.gitlab.com/project1740/ngnix_project:$CI_PIPELINE_IID
-    - docker ls
+    - docker image ls
     
 
 
