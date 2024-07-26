@@ -27,7 +27,7 @@ build:
     - docker push registry.gitlab.com/project1740/ngnix_project
   artifacts:
     paths:
-      -$CI_PROJECT_DIR/
+      - $CI_PROJECT_DIR/
     exclude:
-      -Dockerfile
+      - Dockerfile
 
