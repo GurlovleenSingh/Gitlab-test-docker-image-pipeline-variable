@@ -2,7 +2,7 @@
 
 stages:
   - build
-  - deploy
+  - test
 
 image: docker:20.10.16
 
@@ -24,21 +24,22 @@ build:
   script:
     - docker info
     - docker login registry.gitlab.com -u GurlovleenSingh -p Ansibleaws123**
-    - docker build -t registry.gitlab.com/project1740/ngnix_project .
-    - docker push registry.gitlab.com/project1740/ngnix_project
+    - docker build -t registry.gitlab.com/project1740/ngnix_project:$CI_PIPELINE_IID .
+    - docker push registry.gitlab.com/project1740/ngnix_project:$CI_PIPELINE_IID
   artifacts:
     paths:
       - $CI_PROJECT_DIR/
     exclude:
       - Dockerfile
-pages:
-  stage: deploy
+
+test_job:
+  stage: test
   tags:
     - runner
   script:
-    - mkdir public
-    - cp *.html public/
-  artifacts:
-    paths:
-      - public
+    - docker login registry.gitlab.com -u GurlovleenSingh -p Ansibleaws123** 
+    - docker pull registry.gitlab.com/project1740/ngnix_project:$CI_PIPELINE_IID
+    - docker ls
+    
+
 
