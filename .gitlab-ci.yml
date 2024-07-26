@@ -2,6 +2,7 @@
 
 stages:
   - build
+  - deploy
 
 image: docker:20.10.16
 
@@ -22,7 +23,7 @@ build:
     - docker version
   script:
     - docker info
-    - docker login registry.gitlab.com -u GurlovleenSingh -p password
+    - docker login registry.gitlab.com -u GurlovleenSingh -p Ansibleaws123**
     - docker build -t registry.gitlab.com/project1740/ngnix_project .
     - docker push registry.gitlab.com/project1740/ngnix_project
   artifacts:
@@ -30,4 +31,14 @@ build:
       - $CI_PROJECT_DIR/
     exclude:
       - Dockerfile
+pages:
+  stage: deploy
+  tags:
+    - runner
+  script:
+    - mkdir public
+    - cp *.html public/
+  artifacts:
+    paths:
+      - public
 
