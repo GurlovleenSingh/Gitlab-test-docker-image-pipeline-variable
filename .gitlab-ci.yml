@@ -3,16 +3,15 @@
 stages:
   - build
 
+image: docker:20.10.16
+
 variables:
-  DOCKER_HOST: "tcp://docker:2375"  # Set Docker host to the Docker-in-Docker service
-  
-default:
-  image: docker:19-dind
-  
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
 services:
-  - name: docker:20-dind
-    alias: docker
-    command: [ "--tls=false" ]
+  - docker:20.10.16-dind
 
 
 build:
